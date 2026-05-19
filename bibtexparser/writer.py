@@ -69,9 +69,10 @@ def _treat_expl_comment(
 def _treat_failed_block(
     block: ParsingFailedBlock, bibtex_format: "BibtexFormat"
 ) -> List[str]:
-    lines = len(block.raw.splitlines())
-    parsing_failed_comment = PARSING_FAILED_COMMENT.format(n=lines)
-    return [parsing_failed_comment, "\n", block.raw, "\n"]
+    return []
+    # lines = len(block.raw.splitlines())
+    # parsing_failed_comment = PARSING_FAILED_COMMENT.format(n=lines)
+    # return [parsing_failed_comment, "\n", block.raw, "\n"]
 
 
 def _calculate_auto_value_align(library: Library) -> int:
