@@ -24,7 +24,9 @@ def _treat_entry(block: Entry, bibtex_format) -> List[str]:
         res.append(field.key)
         res.append(_val_intent_string(bibtex_format, field.key))
         res.append(VAL_SEP)
+        res.append("{")
         res.append(field.value)
+        res.append("}")
         if bibtex_format.trailing_comma or i < len(block.fields) - 1:
             res.append(",")
         res.append("\n")
@@ -52,16 +54,22 @@ def _treat_preamble(block: Preamble, bibtex_format: "BibtexFormat") -> List[str]
     return [f"@preamble{{{block.value}}}\n"]
 
 
-def _treat_impl_comment(block: ImplicitComment, bibtex_format: "BibtexFormat") -> List[str]:
+def _treat_impl_comment(
+    block: ImplicitComment, bibtex_format: "BibtexFormat"
+) -> List[str]:
     # Note: No explicit escaping is done here - that should be done in middleware
     return [block.comment, "\n"]
 
 
-def _treat_expl_comment(block: ExplicitComment, bibtex_format: "BibtexFormat") -> List[str]:
+def _treat_expl_comment(
+    block: ExplicitComment, bibtex_format: "BibtexFormat"
+) -> List[str]:
     return ["@comment{", block.comment, "}\n"]
 
 
-def _treat_failed_block(block: ParsingFailedBlock, bibtex_format: "BibtexFormat") -> List[str]:
+def _treat_failed_block(
+    block: ParsingFailedBlock, bibtex_format: "BibtexFormat"
+) -> List[str]:
     lines = len(block.raw.splitlines())
     parsing_failed_comment = PARSING_FAILED_COMMENT.format(n=lines)
     return [parsing_failed_comment, "\n", block.raw, "\n"]
