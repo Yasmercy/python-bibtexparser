@@ -27,8 +27,7 @@ def _treat_entry(block: Entry, bibtex_format) -> List[str]:
         res.append("{")
         res.append(field.value)
         res.append("}")
-        if bibtex_format.trailing_comma or i < len(block.fields) - 1:
-            res.append(",")
+        res.append(",")
         res.append("\n")
     res.append("}\n")
     return res
