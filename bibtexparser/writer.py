@@ -4,7 +4,7 @@ from typing import Optional
 from typing import Union
 
 from .library import Library
-from .model import Entry
+from .model import DuplicateFieldKeyBlock, Entry
 from .model import ExplicitComment
 from .model import Field
 from .model import ImplicitComment
@@ -124,6 +124,8 @@ def _treat_block(bibtex_format, block) -> List[str]:
         string_block_pieces = _treat_expl_comment(block, bibtex_format)
     elif isinstance(block, ImplicitComment):
         string_block_pieces = _treat_impl_comment(block, bibtex_format)
+    elif isinstance(block, DuplicateFieldKeyBlock):
+        string_block_pieces = _treat_failed_block(block, bibtex_format)
     elif isinstance(block, ParsingFailedBlock):
         string_block_pieces = _treat_failed_block(block, bibtex_format)
     else:
