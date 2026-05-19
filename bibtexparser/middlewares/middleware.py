@@ -5,7 +5,7 @@ from typing import Collection
 from typing import Union
 
 from bibtexparser.library import Library
-from bibtexparser.model import Block
+from bibtexparser.model import Block, DuplicateFieldKeyBlock
 from bibtexparser.model import Entry
 from bibtexparser.model import ExplicitComment
 from bibtexparser.model import ImplicitComment
@@ -129,6 +129,8 @@ class BlockMiddleware(Middleware, abc.ABC):
             return self.transform_explicit_comment(block, library)
         elif isinstance(block, ImplicitComment):
             return self.transform_implicit_comment(block, library)
+        elif isinstance(block, DuplicateFieldKeyBlock):
+            return block
 
         logger.warning(f"Unknown block type {type(block)}")
         return block
