@@ -24,9 +24,11 @@ def _treat_entry(block: Entry, bibtex_format) -> List[str]:
         res.append(field.key)
         res.append(_val_intent_string(bibtex_format, field.key))
         res.append(VAL_SEP)
-        res.append("{")
+        if field.key != "month":
+            res.append("{")
         res.append(field.value)
-        res.append("}")
+        if field.key != "month":
+            res.append("}")
         res.append(",")
         res.append("\n")
     res.append("}\n")
