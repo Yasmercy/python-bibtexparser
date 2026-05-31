@@ -113,7 +113,7 @@ def write(library: Library, bibtex_format: Optional["BibtexFormat"] = None) -> s
         if i < len(library.blocks) - 1:
             string_pieces.append(bibtex_format.block_separator)
 
-    return "".join(string_pieces)
+    return "".join(map(str, string_pieces))
 
 
 def _treat_block(bibtex_format, block) -> List[str]:
